@@ -1,44 +1,2043 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-// React Element
-//React.createElement => Object => After rendering -> HTML Element
-// JSX - is not HTML in JS. It has an HTML-like or XML-like syntax
-// JSX is transpiled before reaching the JS Engine. (converting to code that browsers can understand)->Parcel->Babel
+/*
+* Header
+ - logo
+ - nav items
+* Body
+ - search
+ - restaurant container
+   - restaurantCard
+    - img
+	- Name, star rating, cuisine, delivery time
+* Footer
+	- copyright
+	-links
+	-address
+	-contact
+*/
 
-const heading = <h1 className="heading">Hello World using JSX</h1>; // another way to create react Element (usingJSX)
-console.log(heading);
-
-// React Components
-// 2 types - class based (Old way) and functional(New)
-
-// Functional component - a function that returns a piece of JSX code
-// const HeadingComponent = () => {
-// 	return <h1>Functional Component</h1>;
-// };
-// same as
-
-//Component composition - one component inside another
-const subElement = <h2>Sub Element</h2>;
-const SubComponent = () => <h1>Hello World</h1>;
-const HeadingComponent = () => (
-	<div className="container">
-		<h1>Functional Component</h1>
-		<SubComponent />
-		{subElement}
-	</div>
-);
-// React fragment - used to have 2 root level elements - behaves like an empty tag - can
-const Component = () => (
-	<React.Fragment> 
-		{/* can also use <> and </> */}
-		<div>
-			<h1>Hello</h1>
+const Header = () => {
+	return (
+		<div className="header">
+			<div className="logo-container">
+				<img
+					className="logo"
+					src="https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png"
+				/>
+			</div>
+			<div className="nav-items">
+				<ul>
+					<li>Home</li>
+					<li>About Us</li>
+					<li>Contact Us</li>
+					<li>Cart</li>
+				</ul>
+			</div>
 		</div>
-		<div>
-			<h1>World </h1>
+	);
+};
+const RestaurantCard = (props) => {
+	const { resData } = props;
+	const {
+		cloudinaryImageId,
+		name,
+		cuisines,
+		avgRating,
+		costForTwo,
+		deliveryTime,
+	} = resData?.data;
+	return (
+		<div className="res-card">
+			<img
+				className="res-logo"
+				src={
+					"https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
+					cloudinaryImageId
+				}
+			/>
+			<h3>{name}</h3>
+			<h4>{cuisines.join(", ")}</h4>
+			<h4>{avgRating} stars</h4>
+			<h4>₹{costForTwo / 100} FOR TWO</h4>
+			<h4>{deliveryTime} minutes</h4>
 		</div>
-	</React.Fragment>
-);
+	);
+};
+
+const resList = [
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "673318",
+			name: "Bodypower Cafe",
+			uuid: "9b8b341f-95f7-46c5-bdaf-46e926f8f28d",
+			city: "2",
+			area: "sohna road",
+			totalRatingsString: "100+ ratings",
+			cloudinaryImageId: "47bb891185f0b5622306bb08db4de50d",
+			cuisines: [
+				"Pastas",
+				"Indian",
+				"Desserts",
+				"South Indian",
+				"Salads",
+				"Healthy Food",
+				"Pizzas",
+				"Snacks",
+				"Biryani",
+			],
+			tags: [],
+			costForTwo: 45000,
+			costForTwoString: "₹450 FOR TWO",
+			deliveryTime: 34,
+			minDeliveryTime: 34,
+			maxDeliveryTime: 34,
+			slaString: "34 MINS",
+			lastMileTravel: 6.300000190734863,
+			slugs: {
+				restaurant: "bodypower-cafe-sohna-road-sohna-road",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address:
+				"AVA Court, Chestnut St, Malibu Town, Sector 47, Gurugram, Haryana 122018, India",
+			locality: "Ava Court",
+			parentId: 280671,
+			unserviceable: false,
+			veg: false,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			aggregatedDiscountInfo: {
+				header: "40% off",
+				shortDescriptionList: [
+					{
+						meta: "40% off | Use JUMBO",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "40% off up to ₹200 on orders above ₹479 | Use code JUMBO",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			aggregatedDiscountInfoV2: {
+				header: "40% OFF",
+				shortDescriptionList: [
+					{
+						meta: "Use JUMBO",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "40% off up to ₹200 on orders above ₹479 | Use code JUMBO",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			ribbon: [
+				{
+					type: "PROMOTED",
+				},
+			],
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 5800,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 5800,
+				message: "",
+				title: "Delivery Charge",
+				amount: "5800",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "cid=6264373~p=1~eid=00000187-8348-8585-101a-acd100b10144",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "6.3 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "673318",
+				deliveryTime: 34,
+				minDeliveryTime: 34,
+				maxDeliveryTime: 34,
+				lastMileTravel: 6.300000190734863,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: true,
+			avgRating: "4.6",
+			totalRatings: 100,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "63504",
+			name: "Burger point",
+			uuid: "998509d9-ff82-414c-9b5e-22b22f6939a0",
+			city: "2",
+			area: "Sector 4",
+			totalRatingsString: "1000+ ratings",
+			cloudinaryImageId: "t3mgig8v4uwklc0dwg36",
+			cuisines: ["Fast Food"],
+			tags: [],
+			costForTwo: 20000,
+			costForTwoString: "₹200 FOR TWO",
+			deliveryTime: 42,
+			minDeliveryTime: 42,
+			maxDeliveryTime: 42,
+			slaString: "42 MINS",
+			lastMileTravel: 2.799999952316284,
+			slugs: {
+				restaurant:
+					"burger-point-sector-4-huda-market-gurgaon-old-gurgaon-zone-6",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address: "SCF-26 huda market sector 4 Gurgaon",
+			locality: "Huda Market",
+			parentId: 168,
+			unserviceable: false,
+			veg: false,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 3400,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 3400,
+				message: "",
+				title: "Delivery Charge",
+				amount: "3400",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "2.7 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "63504",
+				deliveryTime: 42,
+				minDeliveryTime: 42,
+				maxDeliveryTime: 42,
+				lastMileTravel: 2.799999952316284,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: false,
+			avgRating: "3.7",
+			totalRatings: 1000,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "75235",
+			name: "Petuu Ram",
+			uuid: "22e88d67-c88a-4692-9650-dd60a8de75f4",
+			city: "2",
+			area: "Ardee City",
+			totalRatingsString: "10000+ ratings",
+			cloudinaryImageId: "myuf1zdyh4zhaectmyqc",
+			cuisines: ["Indian", "North Indian", "Punjabi"],
+			tags: [],
+			costForTwo: 20000,
+			costForTwoString: "₹200 FOR TWO",
+			deliveryTime: 39,
+			minDeliveryTime: 39,
+			maxDeliveryTime: 39,
+			slaString: "39 MINS",
+			lastMileTravel: 7.099999904632568,
+			slugs: {
+				restaurant: "petuu-ram-sector-52-jalvayu-towers",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address:
+				"SHOP NO-5 & 6, 27, GATE NUMBER-2, ARDEE CITY ROAD, BLOCK-B, SECTOR-52, GURGAON",
+			locality: "Sector 52",
+			parentId: 16600,
+			unserviceable: false,
+			veg: false,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			aggregatedDiscountInfo: {
+				header: "40% off",
+				shortDescriptionList: [
+					{
+						meta: "40% off | Use TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "40% off up to ₹80 | Use code TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			aggregatedDiscountInfoV2: {
+				header: "40% OFF",
+				shortDescriptionList: [
+					{
+						meta: "Use TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "40% off up to ₹80 | Use code TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 6400,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 6400,
+				message: "",
+				title: "Delivery Charge",
+				amount: "6400",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "7 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "75235",
+				deliveryTime: 39,
+				minDeliveryTime: 39,
+				maxDeliveryTime: 39,
+				lastMileTravel: 7.099999904632568,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: false,
+			avgRating: "4.3",
+			totalRatings: 10000,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "109813",
+			name: "Tamil Nadu Dosa Corner",
+			uuid: "c831a351-13cc-4157-8e5a-9bf8a733ed2c",
+			city: "2",
+			area: "DLF Phase 1",
+			totalRatingsString: "10000+ ratings",
+			cloudinaryImageId: "wwnotez8tcfpq0lezgln",
+			cuisines: ["South Indian"],
+			tags: [],
+			costForTwo: 25000,
+			costForTwoString: "₹250 FOR TWO",
+			deliveryTime: 35,
+			minDeliveryTime: 35,
+			maxDeliveryTime: 35,
+			slaString: "35 MINS",
+			lastMileTravel: 8.300000190734863,
+			slugs: {
+				restaurant:
+					"tamilnadu-dosa-corner-sector-26-gurugram-haryana-india-dlf-phase-4",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address: "SHOP NO M-11 QUTUHB PLAZA DLF PHASE 1 GURGAON HARYANA",
+			locality: "Qutab Plaza Market",
+			parentId: 200406,
+			unserviceable: false,
+			veg: true,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			aggregatedDiscountInfo: {
+				header: "50% off",
+				shortDescriptionList: [
+					{
+						meta: "50% off | Use GUILTFREE",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "50% off up to ₹120 | Use code GUILTFREE",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			aggregatedDiscountInfoV2: {
+				header: "50% OFF",
+				shortDescriptionList: [
+					{
+						meta: "Use GUILTFREE",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "50% off up to ₹120 | Use code GUILTFREE",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			ribbon: [
+				{
+					type: "PROMOTED",
+				},
+			],
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 7400,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 7400,
+				message: "",
+				title: "Delivery Charge",
+				amount: "7400",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "cid=6393064~p=4~eid=00000187-8348-8585-101a-acd200b1040e",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "8.3 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "109813",
+				deliveryTime: 35,
+				minDeliveryTime: 35,
+				maxDeliveryTime: 35,
+				lastMileTravel: 8.300000190734863,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: true,
+			avgRating: "4.1",
+			totalRatings: 10000,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "325158",
+			name: "Moolchand Paratha",
+			uuid: "0b98ceeb-9c95-4c08-b912-64a28ebbc444",
+			city: "2",
+			area: "Sector 14",
+			totalRatingsString: "5000+ ratings",
+			cloudinaryImageId: "cdtv7tga96apxurtirdz",
+			cuisines: ["North Indian"],
+			tags: [],
+			costForTwo: 20000,
+			costForTwoString: "₹200 FOR TWO",
+			deliveryTime: 36,
+			minDeliveryTime: 36,
+			maxDeliveryTime: 36,
+			slaString: "36 MINS",
+			lastMileTravel: 2.799999952316284,
+			slugs: {
+				restaurant: "moolchand-paratha-cyber-city-cyber-city",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address: "Sector 14 huda market shop no 15",
+			locality: "Cyber City",
+			parentId: 4515,
+			unserviceable: false,
+			veg: false,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			aggregatedDiscountInfo: {
+				header: "50% off",
+				shortDescriptionList: [
+					{
+						meta: "50% off | Use TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "50% off up to ₹100 | Use code TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			aggregatedDiscountInfoV2: {
+				header: "50% OFF",
+				shortDescriptionList: [
+					{
+						meta: "Use TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "50% off up to ₹100 | Use code TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 3400,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 3400,
+				message: "",
+				title: "Delivery Charge",
+				amount: "3400",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "2.7 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "325158",
+				deliveryTime: 36,
+				minDeliveryTime: 36,
+				maxDeliveryTime: 36,
+				lastMileTravel: 2.799999952316284,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: false,
+			avgRating: "4.2",
+			totalRatings: 5000,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "280771",
+			name: "CHAMAIL SINGH DA DHABA",
+			uuid: "5252be69-c407-4777-a241-d1e3fbdb7105",
+			city: "2",
+			area: "Sector 39",
+			totalRatingsString: "1000+ ratings",
+			cloudinaryImageId: "ge2lzhxpx7izcbpseria",
+			cuisines: ["North Indian"],
+			tags: [],
+			costForTwo: 29900,
+			costForTwoString: "₹299 FOR TWO",
+			deliveryTime: 30,
+			minDeliveryTime: 30,
+			maxDeliveryTime: 30,
+			slaString: "30 MINS",
+			lastMileTravel: 4,
+			slugs: {
+				restaurant: "chamail-singh-da-dhaba-sohna-road-sohna-road-2",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address:
+				"1063,\tShop\tNo\t4,\tSector 39,\tVill\tJharsa,\tGurgaon,\tGurgaon\t(Haryana),\t-\t122001",
+			locality: "Jharsa",
+			parentId: 57541,
+			unserviceable: false,
+			veg: false,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			aggregatedDiscountInfo: {
+				header: "40% off",
+				shortDescriptionList: [
+					{
+						meta: "40% off | Use TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "40% off up to ₹80 | Use code TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			aggregatedDiscountInfoV2: {
+				header: "40% OFF",
+				shortDescriptionList: [
+					{
+						meta: "Use TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "40% off up to ₹80 | Use code TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 4600,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 4600,
+				message: "",
+				title: "Delivery Charge",
+				amount: "4600",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "4 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "280771",
+				deliveryTime: 30,
+				minDeliveryTime: 30,
+				maxDeliveryTime: 30,
+				lastMileTravel: 4,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: false,
+			avgRating: "4.1",
+			totalRatings: 1000,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "329007",
+			name: "Mealy - Your Everyday Meal",
+			uuid: "429dd710-4e0e-45c7-a1cd-402c3c1bc0ba",
+			city: "2",
+			area: "Sector 12",
+			totalRatingsString: "5000+ ratings",
+			cloudinaryImageId: "mc2osqre8jgglwpfhidn",
+			cuisines: [
+				"North Indian",
+				"Street Food",
+				"Beverages",
+				"Desserts",
+				"Home Food",
+			],
+			tags: [],
+			costForTwo: 20000,
+			costForTwoString: "₹200 FOR TWO",
+			deliveryTime: 32,
+			minDeliveryTime: 32,
+			maxDeliveryTime: 32,
+			slaString: "32 MINS",
+			lastMileTravel: 1.899999976158142,
+			slugs: {
+				restaurant: "mealy---your-everyday-meal-huda-city-huda-city",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address:
+				"Ground Floor, SCO 32,Commercial Complex, Sector 12A, Gurugram, Haryana,122001",
+			locality: "Huda Market",
+			parentId: 11705,
+			unserviceable: false,
+			veg: false,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			aggregatedDiscountInfo: {
+				header: "Flat ₹125 off",
+				shortDescriptionList: [
+					{
+						meta: "Flat ₹125 off on orders above ₹249",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "Flat ₹125 off on orders above ₹249 | Use code MATCHDEAL125",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			aggregatedDiscountInfoV2: {
+				header: "₹125 OFF",
+				shortDescriptionList: [
+					{
+						meta: "Use MATCHDEAL125",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "Flat ₹125 off on orders above ₹249 | Use code MATCHDEAL125",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			ribbon: [
+				{
+					type: "PROMOTED",
+				},
+			],
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 3400,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 3400,
+				message: "",
+				title: "Delivery Charge",
+				amount: "3400",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "cid=6306619~p=7~eid=00000187-8348-8585-101a-acd300b10708",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "1.8 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "329007",
+				deliveryTime: 32,
+				minDeliveryTime: 32,
+				maxDeliveryTime: 32,
+				lastMileTravel: 1.899999976158142,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: true,
+			avgRating: "4.1",
+			totalRatings: 5000,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "56478",
+			name: "Om Sweets & Snacks (Sector 8)",
+			uuid: "a5493bd8-7328-438c-9b43-87c413bedef9",
+			city: "2",
+			area: "Sector 8",
+			totalRatingsString: "10000+ ratings",
+			cloudinaryImageId: "bztjesdzq7j9fmji3zv6",
+			cuisines: [
+				"Sweets",
+				"North Indian",
+				"South Indian",
+				"Chinese",
+				"Snacks",
+				"Desserts",
+				"Bakery",
+			],
+			tags: [],
+			costForTwo: 40000,
+			costForTwoString: "₹400 FOR TWO",
+			deliveryTime: 30,
+			minDeliveryTime: 30,
+			maxDeliveryTime: 30,
+			slaString: "30 MINS",
+			lastMileTravel: 0.800000011920929,
+			slugs: {
+				restaurant: "om-sweets-snacks-sector-8-old-gurgaon-zone-6",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address: "Opposite Water Tank, Arjun Nagar, Sector 8, Gurgaon",
+			locality: "Arjun Nagar",
+			parentId: 676,
+			unserviceable: false,
+			veg: true,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			aggregatedDiscountInfo: {
+				header: "60% off",
+				shortDescriptionList: [
+					{
+						meta: "60% off | Use TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "60% off up to ₹120 | Use code TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			aggregatedDiscountInfoV2: {
+				header: "60% OFF",
+				shortDescriptionList: [
+					{
+						meta: "Use TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "60% off up to ₹120 | Use code TRYNEW",
+						discountType: "Percentage",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 3400,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 3400,
+				message: "",
+				title: "Delivery Charge",
+				amount: "3400",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "0.8 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "56478",
+				deliveryTime: 30,
+				minDeliveryTime: 30,
+				maxDeliveryTime: 30,
+				lastMileTravel: 0.800000011920929,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: false,
+			avgRating: "4.3",
+			totalRatings: 10000,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "480212",
+			name: "Sharma Hotel",
+			uuid: "3deff7b9-e4bd-4b5d-85a2-c1da0acfe85d",
+			city: "2",
+			area: "Sector 37",
+			totalRatingsString: "50+ ratings",
+			cloudinaryImageId: "iwtthhau3g2nliancnsk",
+			cuisines: ["Indian", "North Indian", "Chinese"],
+			tags: [],
+			costForTwo: 20000,
+			costForTwoString: "₹200 FOR TWO",
+			deliveryTime: 41,
+			minDeliveryTime: 41,
+			maxDeliveryTime: 41,
+			slaString: "41 MINS",
+			lastMileTravel: 3.9000000953674316,
+			slugs: {
+				restaurant: "sharma-hotel-old-gurgaon-(zone-6)-old-gurgaon-(zone-6)",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address:
+				"NH ROAD HERO HONDA NEAR SHANKAR SWEETS VPO KHANDSA, Gurugram, Haryana 122002, India",
+			locality: "Nh Road Hero Honda",
+			parentId: 182098,
+			unserviceable: false,
+			veg: false,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 4000,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 4000,
+				message: "",
+				title: "Delivery Charge",
+				amount: "4000",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "3.9 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "480212",
+				deliveryTime: 41,
+				minDeliveryTime: 41,
+				maxDeliveryTime: 41,
+				lastMileTravel: 3.9000000953674316,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: false,
+			avgRating: "3.7",
+			totalRatings: 50,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "510320",
+			name: "DND - Daily Nutritional Diet",
+			uuid: "4a1911e1-96e2-4d58-a60f-7f05af0bb692",
+			city: "2",
+			area: "Sushant Lok",
+			totalRatingsString: "500+ ratings",
+			cloudinaryImageId: "hoyccn8cf3zanmyntia5",
+			cuisines: [
+				"Healthy Food",
+				"Salads",
+				"Juices",
+				"Snacks",
+				"Indian",
+				"Desserts",
+				"Beverages",
+				"Italian",
+			],
+			tags: [],
+			costForTwo: 30000,
+			costForTwoString: "₹300 FOR TWO",
+			deliveryTime: 41,
+			minDeliveryTime: 41,
+			maxDeliveryTime: 41,
+			slaString: "41 MINS",
+			lastMileTravel: 6.400000095367432,
+			slugs: {
+				restaurant: "dnd---daily-nutritional-diet-dlf-phase-4-dlf-phase-4",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address:
+				"Shop No, C-18, LG in Sushant Arcade, Sushant Lok Phase 1, Gurugram ,Haryana-122009",
+			locality: "Sushant Arcade",
+			parentId: 73704,
+			unserviceable: false,
+			veg: false,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			aggregatedDiscountInfo: {
+				header: "FLAT150 off",
+				shortDescriptionList: [
+					{
+						meta: "FLAT150 off | Use FLATDEAL",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "FLAT150 off | Use FLATDEAL",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			aggregatedDiscountInfoV2: {
+				header: "₹150 OFF",
+				shortDescriptionList: [
+					{
+						meta: "Use FLATDEAL",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "FLAT150 off | Use FLATDEAL",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			ribbon: [
+				{
+					type: "PROMOTED",
+				},
+			],
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 5800,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 5800,
+				message: "",
+				title: "Delivery Charge",
+				amount: "5800",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "cid=6400367~p=10~eid=00000187-8348-8585-101a-acd400b10a58",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "6.4 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "510320",
+				deliveryTime: 41,
+				minDeliveryTime: 41,
+				maxDeliveryTime: 41,
+				lastMileTravel: 6.400000095367432,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: true,
+			avgRating: "4.3",
+			totalRatings: 500,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "304634",
+			name: "Caterspoint",
+			uuid: "255d98c8-c555-4df2-8f4f-2e2a1a3f34ff",
+			city: "2",
+			area: "Sector 50",
+			totalRatingsString: "5000+ ratings",
+			cloudinaryImageId: "qs4botldnfxbx9lrxdqx",
+			cuisines: ["Italian", "Indian", "Salads"],
+			tags: [],
+			costForTwo: 60000,
+			costForTwoString: "₹600 FOR TWO",
+			deliveryTime: 43,
+			minDeliveryTime: 43,
+			maxDeliveryTime: 43,
+			slaString: "43 MINS",
+			lastMileTravel: 5.800000190734863,
+			slugs: {
+				restaurant: "caterspoint-sohna-road-sohna-road",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address:
+				"H.No.121, Village Samaspur, Sector-51, Gurgaon, Gurugram, Haryana, 122003",
+			locality: "Village Samaspur",
+			parentId: 11011,
+			unserviceable: false,
+			veg: false,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			aggregatedDiscountInfo: {
+				header: "Flat ₹125 off",
+				shortDescriptionList: [
+					{
+						meta: "Flat ₹125 off on orders above ₹249",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "Flat ₹125 off on orders above ₹249 | Use code MATCHDEAL125",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			aggregatedDiscountInfoV2: {
+				header: "₹125 OFF",
+				shortDescriptionList: [
+					{
+						meta: "Use MATCHDEAL125",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "Flat ₹125 off on orders above ₹249 | Use code MATCHDEAL125",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			ribbon: [
+				{
+					type: "PROMOTED",
+				},
+			],
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 5200,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 5200,
+				message: "",
+				title: "Delivery Charge",
+				amount: "5200",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "cid=6408095~p=13~eid=00000187-8348-8585-101a-acd500b10d02",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "5.8 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "304634",
+				deliveryTime: 43,
+				minDeliveryTime: 43,
+				maxDeliveryTime: 43,
+				lastMileTravel: 5.800000190734863,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: true,
+			avgRating: "4.4",
+			totalRatings: 5000,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "463482",
+			name: "Pind Bhatura",
+			uuid: "f5bf542b-23fb-4a19-b63e-2697270e9ff3",
+			city: "2",
+			area: "Sector 49",
+			totalRatingsString: "1000+ ratings",
+			cloudinaryImageId: "zlnzsggyilj2tgk7e1qq",
+			cuisines: ["North Indian", "Punjabi", "Indian"],
+			tags: [],
+			costForTwo: 20000,
+			costForTwoString: "₹200 FOR TWO",
+			deliveryTime: 38,
+			minDeliveryTime: 38,
+			maxDeliveryTime: 38,
+			slaString: "38 MINS",
+			lastMileTravel: 6.199999809265137,
+			slugs: {
+				restaurant: "pind-bhatura-sohna-road-sohna-road",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address: "Shop No. 11A, Omaxe Gurgaon Mall, Sohna Road, Gurgaon - 122018",
+			locality: "Omaxe City Center Mall",
+			parentId: 15872,
+			unserviceable: false,
+			veg: true,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 5800,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 5800,
+				message: "",
+				title: "Delivery Charge",
+				amount: "5800",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "6.1 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "463482",
+				deliveryTime: 38,
+				minDeliveryTime: 38,
+				maxDeliveryTime: 38,
+				lastMileTravel: 6.199999809265137,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: false,
+			avgRating: "4.5",
+			totalRatings: 1000,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "261401",
+			name: "MOPP - Mad Over Parathas & Pakodas",
+			uuid: "2b63619f-8ec9-46f1-894b-af1be81f645e",
+			city: "2",
+			area: "Sector 56",
+			totalRatingsString: "5000+ ratings",
+			cloudinaryImageId: "jfi4lokpaocrnfhkxrpg",
+			cuisines: ["North Indian", "Snacks", "Sweets", "Desserts", "Tandoor"],
+			tags: [],
+			costForTwo: 25000,
+			costForTwoString: "₹250 FOR TWO",
+			deliveryTime: 47,
+			minDeliveryTime: 47,
+			maxDeliveryTime: 47,
+			slaString: "47 MINS",
+			lastMileTravel: 8,
+			slugs: {
+				restaurant: "mopp-jalvayu-towers-jalvayu-towers",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address:
+				"SHOP NO.245, SECOND FLOOR, BABA CHITRU COMPLEX, WAZIRABAD,SECTOR-52,GURGAON  - 122002, Haryana",
+			locality: "Wazirabad",
+			parentId: 139145,
+			unserviceable: false,
+			veg: false,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			aggregatedDiscountInfo: {
+				header: "Flat ₹125 off",
+				shortDescriptionList: [
+					{
+						meta: "Flat ₹125 off on orders above ₹249",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "Flat ₹125 off on orders above ₹249 | Use code MATCHDEAL125",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			aggregatedDiscountInfoV2: {
+				header: "₹125 OFF",
+				shortDescriptionList: [
+					{
+						meta: "Use MATCHDEAL125",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "Flat ₹125 off on orders above ₹249 | Use code MATCHDEAL125",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			ribbon: [
+				{
+					type: "PROMOTED",
+				},
+			],
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 6400,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 6400,
+				message: "",
+				title: "Delivery Charge",
+				amount: "6400",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "cid=6306617~p=16~eid=00000187-8348-8585-101a-acd600b11002",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "8 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "261401",
+				deliveryTime: 47,
+				minDeliveryTime: 47,
+				maxDeliveryTime: 47,
+				lastMileTravel: 8,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: true,
+			avgRating: "4.0",
+			totalRatings: 5000,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "20138",
+			name: "Harish Bakery",
+			uuid: "446e49d2-675d-4180-953c-cdf2e7c48f24",
+			city: "2",
+			area: "Sadar Bazar",
+			totalRatingsString: "10000+ ratings",
+			cloudinaryImageId: "jkuj5aui7wwmwc0eidog",
+			cuisines: ["North Indian", "South Indian", "Desserts"],
+			tags: [],
+			costForTwo: 35000,
+			costForTwoString: "₹350 FOR TWO",
+			deliveryTime: 26,
+			minDeliveryTime: 26,
+			maxDeliveryTime: 26,
+			slaString: "26 MINS",
+			lastMileTravel: 0.20000000298023224,
+			slugs: {
+				restaurant: "harish-bakery-old-railway-road-sohna-road",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address:
+				"sco.1-2&4 jail land complex, Huda Shopping Center, Sohna Chowk, Gurugram-122001",
+			locality: "Huda Shopping Center",
+			parentId: 1676,
+			unserviceable: false,
+			veg: true,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 3400,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 3400,
+				message: "",
+				title: "Delivery Charge",
+				amount: "3400",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "0.2 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "20138",
+				deliveryTime: 26,
+				minDeliveryTime: 26,
+				maxDeliveryTime: 26,
+				lastMileTravel: 0.20000000298023224,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: false,
+			avgRating: "4.0",
+			totalRatings: 10000,
+			new: false,
+		},
+		subtype: "basic",
+	},
+	{
+		type: "restaurant",
+		data: {
+			type: "F",
+			id: "304086",
+			name: "Rominus Pizza & Burger",
+			uuid: "6c52e649-0f60-4401-8e97-552df79997ba",
+			city: "2",
+			area: "DLF Phase - 3",
+			totalRatingsString: "5000+ ratings",
+			cloudinaryImageId: "9ec9ffd900c24ef751e2f34ba3d2fd4b",
+			cuisines: [
+				"Italian-American",
+				"Pizzas",
+				"Continental",
+				"Pastas",
+				"Snacks",
+				"Desserts",
+				"American",
+			],
+			tags: [],
+			costForTwo: 15000,
+			costForTwoString: "₹150 FOR TWO",
+			deliveryTime: 45,
+			minDeliveryTime: 45,
+			maxDeliveryTime: 45,
+			slaString: "45 MINS",
+			lastMileTravel: 9.5,
+			slugs: {
+				restaurant: "rominus-burger-and-pizza-cyber-city-cyber-city",
+				city: "gurgaon",
+			},
+			cityState: "2",
+			address:
+				"U-77/5-6 DLF CITY PHASE 3, GURUGRAM, District - Gurgaon, STATE - Haryana-122009",
+			locality: "Block U",
+			parentId: 8387,
+			unserviceable: false,
+			veg: false,
+			select: false,
+			favorite: false,
+			tradeCampaignHeaders: [],
+			aggregatedDiscountInfo: {
+				header: "FLAT150 off",
+				shortDescriptionList: [
+					{
+						meta: "FLAT150 off | Use FLATDEAL",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "FLAT150 off | Use FLATDEAL",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			aggregatedDiscountInfoV2: {
+				header: "₹150 OFF",
+				shortDescriptionList: [
+					{
+						meta: "Use FLATDEAL",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				descriptionList: [
+					{
+						meta: "FLAT150 off | Use FLATDEAL",
+						discountType: "Flat",
+						operationType: "RESTAURANT",
+					},
+				],
+				subHeader: "",
+				headerType: 0,
+				superFreedel: "",
+			},
+			chain: [],
+			feeDetails: {
+				fees: [
+					{
+						name: "distance",
+						fee: 8400,
+						message: "",
+					},
+					{
+						name: "time",
+						fee: 0,
+						message: "",
+					},
+					{
+						name: "special",
+						fee: 0,
+						message: "",
+					},
+				],
+				totalFees: 8400,
+				message: "",
+				title: "Delivery Charge",
+				amount: "8400",
+				icon: "",
+			},
+			availability: {
+				opened: true,
+				nextOpenMessage: "",
+				nextCloseMessage: "",
+			},
+			longDistanceEnabled: 0,
+			rainMode: "NONE",
+			thirdPartyAddress: false,
+			thirdPartyVendor: "",
+			adTrackingID: "",
+			badges: {
+				imageBased: [],
+				textBased: [],
+				textExtendedBadges: [],
+			},
+			lastMileTravelString: "9.5 kms",
+			hasSurge: false,
+			sla: {
+				restaurantId: "304086",
+				deliveryTime: 45,
+				minDeliveryTime: 45,
+				maxDeliveryTime: 45,
+				lastMileTravel: 9.5,
+				lastMileDistance: 0,
+				serviceability: "SERVICEABLE",
+				rainMode: "NONE",
+				longDistance: "NOT_LONG_DISTANCE",
+				preferentialService: false,
+				iconType: "EMPTY",
+			},
+			promoted: false,
+			avgRating: "4.0",
+			totalRatings: 5000,
+			new: false,
+		},
+		subtype: "basic",
+	},
+];
+const Body = () => {
+	return (
+		<div className="body">
+			<div className="search">Search</div>
+			<div className="res-container">
+				{/*Passing props to the component*/}
+				<RestaurantCard resData={resList[0]} />
+				{resList.map((restaurant) => (
+					<RestaurantCard key={restaurant.data.id} resData={restaurant} />
+				))}
+			</div>
+		</div>
+	);
+};
+const AppLayout = () => {
+	return (
+		<div className="app">
+			<Header />
+			<Body />
+		</div>
+	);
+};
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Component />);
+root.render(<AppLayout />);
