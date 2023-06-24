@@ -75,3 +75,8 @@ a:hover{
     color: inherit;
     opacity: 0.8;
 }
+
+.user-card {
+    padding: 10px;
+    border: 1px solid black;
+}

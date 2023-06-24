@@ -44,3 +44,14 @@
 
 ### Single Page Application (SPA)
 - Single Page Application (SPA) is a type of web application that follows the client-side routing approach. It is a web application that dynamically updates the content on a single HTML page without requiring a full page reload for each navigation. SPAs are typically built using JavaScript frameworks or libraries, such as React, Angular, or Vue.js. The initial page load includes the necessary JavaScript and CSS files, and subsequent route changes are handled by the client-side JavaScript, which updates the UI without involving the server.
+
+#React lifecycle 
+- Parent Constructor
+- Parent Render
+    - Child1 Constructor
+    - Child1 Render
+    - Child2 Constructor
+    - Child2 Render
+    - Child1 ComponentDidMount
+    - Child2 ComponentDidMount
+- Parent ComponentDidMount
