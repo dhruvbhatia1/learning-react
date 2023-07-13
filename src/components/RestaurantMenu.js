@@ -18,10 +18,10 @@ const RestaurantMenu = () => {
 	return resInfo === null ? (
 		<Shimmer />
 	) : (
-		<div className="menu">
-			<h1>{name}</h1>
-			<h3>{cuisines.join(", ")}</h3>
-			<h3>{costForTwoMessage}</h3>
+		<div className="menu text-center">
+			<h1 className="font-bold text-2xl ">{name}</h1>
+			<h3 className="font-semibold text-lg ">{cuisines.join(", ")}</h3>
+			<h3 className="font-semibold text-lg">{costForTwoMessage}</h3>
 			<h2>Menu</h2>
 			<ul>
 				{itemCards.map((item) => (
