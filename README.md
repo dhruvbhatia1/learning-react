@@ -45,7 +45,7 @@
 ### Single Page Application (SPA)
 - Single Page Application (SPA) is a type of web application that follows the client-side routing approach. It is a web application that dynamically updates the content on a single HTML page without requiring a full page reload for each navigation. SPAs are typically built using JavaScript frameworks or libraries, such as React, Angular, or Vue.js. The initial page load includes the necessary JavaScript and CSS files, and subsequent route changes are handled by the client-side JavaScript, which updates the UI without involving the server.
 
-#React lifecycle 
+## React lifecycle 
 - Parent Constructor
 - Parent Render
     - Child1 Constructor
@@ -56,6 +56,29 @@
     - Child2 ComponentDidMount
 - Parent ComponentDidMount
 
-#Chunking / Code Splitting / Lazy Loading / Dynamic Bundling / On Demand Loading
+## Chunking / Code Splitting / Lazy Loading / Dynamic Bundling / On Demand Loading
 - Code Splitting is a feature supported by bundlers like Webpack and Browserify (via factor-bundle) which can create multiple bundles that can be dynamically loaded at runtime.
 - Code-splitting your app can help you “lazy-load” just the things that are currently needed by the user, which can dramatically improve the performance of your app. While you haven’t reduced the overall amount of code in your app, you’ve avoided loading code that the user may never need, and reduced the amount of code needed during the initial load.
+
+## Higher Order Components (HOC)
+- Higher Order Component is a function that takes a component as an argument and returns a new component.
+- A higher-order component (HOC) is an advanced technique in React for reusing component logic. HOCs are not part of the React API, per se. They are a pattern that emerges from React’s compositional nature.
+- generally used for
+    - Code reuse, logic and bootstrap abstraction (means we can use the same logic in multiple places)
+    - Render Highjacking (means we can render something else in place of the wrapped component)
+    - State abstraction and manipulation (means we can add state to the wrapped component)
+    - Props manipulation (means we can add props to the wrapped component)
+
+## Controlled and Uncontrolled Components
+- In a controlled component, form data is handled by a React component. The alternative is uncontrolled components, where form data is handled by the DOM itself.
+
+## Lifting State Up
+- Sometimes, you want the state of two components to always change together. To do it, remove state from both of them, move it to their closest common parent, and then pass it down to them via props. This is known as lifting state up, and it’s one of the most common things you will do writing React code.   
+
+## Props Drilling
+- Props drilling is the process we have to follow when we have a deeply nested component structure, and we need to pass data from a component that is higher up the tree to a component that is lower down the tree. In this case, we have to pass the data through all the components in between, even though they don’t need the data themselves. This is called props drilling.
+- The problem with props drilling is that it makes the code harder to maintain. If we need to change the data we are passing down, we have to change the code in all the components in between. This is not ideal.
+- The solution to this problem is to use React Context. React Context allows us to pass data down the component tree without having to pass props manually at every level. This makes the code easier to maintain.
+
+## React Context
+- React Context is a feature that was introduced in React 16.3. It allows us to pass data down the component tree without having to pass props manually at every level. This makes the code easier to maintain.
