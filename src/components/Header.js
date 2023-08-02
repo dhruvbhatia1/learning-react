@@ -42,7 +42,7 @@ const Header = () => {
 					<button className="login" onClick={() => setLoggedIn(!loggedIn)}>
 						{loggedIn ? "Logout" : "Login"}
 					</button>
-					<li className="px-4 font-bold">{loggedInUser}</li>
+					{/* <li className="px-4 font-bold">{loggedInUser}</li> */}
 				</ul>
 			</div>
 		</div>
