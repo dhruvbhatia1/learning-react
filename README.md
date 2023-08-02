@@ -82,3 +82,13 @@
 
 ## React Context
 - React Context is a feature that was introduced in React 16.3. It allows us to pass data down the component tree without having to pass props manually at every level. This makes the code easier to maintain.
+
+## Redux Toolkit
+- Redux Toolkit is the official, opinionated, batteries-included toolset for efficient Redux development. It is intended to be the standard way to write Redux logic, and we strongly recommend that you use it.
+- Install libraries
+    - npm install @reduxjs/toolkit react-redux
+- Create a store
+- Connect our store to the app
+- Slice (cartSlice)
+- dispatch(action)
+- Selector

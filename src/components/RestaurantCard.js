@@ -9,7 +9,7 @@ const RestaurantCard = (props) => {
 		avgRating,
 		costForTwo,
 		deliveryTime,
-	} = resData?.data;
+	} = resData;
 	return (
 		<div className="res-card m-4 p-4 w-64 bg-gray-100 hover:bg-gray-200">
 			<img

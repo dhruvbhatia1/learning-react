@@ -26,8 +26,12 @@ const Body = () => {
 		const json = await data.json();
 		console.log(json);
 		//Optional Chaining
-		setListOfRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-		setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+		setListOfRestaurants(
+			json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+		);
+		setFilteredRestaurants(
+			json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+		);
 	};
 
 	const onlineStatus = useOnlineStatus();
@@ -35,9 +39,9 @@ const Body = () => {
 		return <h1>You are offline!!</h1>;
 	}
 
-	const {loggedInUser	,setUserName} = useContext(UserContext);
+	const { loggedInUser, setUserName } = useContext(UserContext);
 
-	return listOfRestaurants?.length === 0 ? (
+	return (listOfRestaurants?.length === 0 || filteredRestaurants?.length === 0) ? (
 		<Shimmer />
 	) : (
 		<div className="body">
@@ -56,7 +60,7 @@ const Body = () => {
 						className="px-4 py-2 rounded-lg bg-green-100 m-4"
 						onClick={() => {
 							let filteredList = listOfRestaurants.filter((res) =>
-								res.data.name.toLowerCase().includes(searchText.toLowerCase())
+								res.info.name.toLowerCase().includes(searchText.toLowerCase())
 							);
 							setFilteredRestaurants(filteredList);
 						}}
@@ -64,13 +68,13 @@ const Body = () => {
 						Search
 					</button>
 				</div>
-				<div className="search m-4 p-4 flex items-center">
+				<div className="m-4 p-4 flex items-center">
 					<button
 						className="px-4 py-2 bg-gray-100 rounded-lg"
 						onClick={() => {
 							//filter logic
 							filteredList = filteredRestaurants.filter(
-								(res) => res.data.avgRating > 4
+								(res) => res.info.avgRating > 4
 							);
 							setFilteredRestaurants(filteredList);
 						}}
@@ -78,23 +82,29 @@ const Body = () => {
 						Top Rated Restaurants
 					</button>
 				</div>
-				<div className="search m-4 p-4 flex items-center">
+				{/*  Username div  */}
+				{/* <div className="search m-4 p-4 flex items-center">
 					<label>UserName: </label>
-					<input className="border border-black p-2" type="text" value={loggedInUser} onChange={(e)=>{
-						setUserName(e.target.value);
-					}}/>
-				</div>
+					<input
+						className="border border-black p-2"
+						type="text"
+						value={loggedInUser}
+						onChange={(e) => {
+							setUserName(e.target.value);
+						}}
+					/>
+				</div> */}
 			</div>
 			<div className="res-container flex flex-wrap">
 				{filteredRestaurants.map((restaurant) => (
 					<Link
-						key={restaurant.data.id}
-						to={"/restaurants/" + restaurant.data.id}
+						key={restaurant?.info.id}
+						to={"/restaurants/" + restaurant?.info.id}
 					>
-						{restaurant.data.promoted ? (
-							<RestaurantCardPromoted resData={restaurant} />
+						{restaurant?.info.promoted ? (
+							<RestaurantCardPromoted resData={restaurant?.info} />
 						) : (
-							<RestaurantCard resData={restaurant} />
+							<RestaurantCard resData={restaurant?.info} />
 						)}
 					</Link>
 				))}
