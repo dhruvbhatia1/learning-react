@@ -100,3 +100,29 @@ https://github.com/dhruvbhatia1/learning-react/assets/65610188/728de8d1-c1bb-4e4
 - Slice (cartSlice)
 - dispatch(action)
 - Selector
+
+
+## Types of Testing 
+- Unit Testing - test individual units of code
+- Integration Testing - test how multiple units work together
+- End to End Testing (E2E) - test the entire application as a whole
+
+
+## Setting up testing in our app
+- Install Libraries
+    - React Testing Library
+    - Jest
+    - Babel dependencies required by jest
+
+- Configure babel.config.js
+- Configure parcel config file to disable default babel transpilation
+- Jest Configuration - npx jest --init (create jest.config.js)
+- install jest-environment-jsdom library to run jest in browser environment (npm install jest-environment-jsdom --save-dev)
+- Install @babel/preset-react (npm install @babel/preset-react --save-dev) to make JSX work in test cases.
+- include @babel/preset-react in babel.config.js
+- Install @testing-library/jest-dom (npm install @testing-library/jest-dom --save-dev) to make jest-dom assertions work in test cases.
+
+
+- Add test script in package.json
+- Run test script
+

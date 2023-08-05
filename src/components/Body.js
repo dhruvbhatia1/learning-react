@@ -13,7 +13,7 @@ const Body = () => {
 
 	const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
-	console.log(listOfRestaurants);
+	// console.log(listOfRestaurants);
 
 	useEffect(() => {
 		fetchData();
@@ -23,6 +23,7 @@ const Body = () => {
 		const data = await fetch(
 			"https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.4594965&lng=77.0266383&page_type=DESKTOP_WEB_LISTING"
 		);
+		// console.log(data);
 		const json = await data.json();
 		// console.log(json);
 		//Optional Chaining
@@ -40,14 +41,15 @@ const Body = () => {
 	}
 
 	const { loggedInUser, setUserName } = useContext(UserContext);
-
-	return (listOfRestaurants?.length === 0 || filteredRestaurants?.length === 0) ? (
+	return listOfRestaurants?.length === 0 ||
+		filteredRestaurants?.length === 0 ? (
 		<Shimmer />
 	) : (
 		<div className="body">
 			<div className="filter flex">
 				<div className="search m-4 p-4">
 					<input
+						data-testid="search-input"
 						type="text"
 						placeholder="Search Restaurants"
 						value={searchText}
@@ -73,13 +75,19 @@ const Body = () => {
 						className="px-4 py-2 bg-gray-100 rounded-lg"
 						onClick={() => {
 							//filter logic
-							filteredList = filteredRestaurants.filter(
-								(res) => res.info.avgRating > 4
+							const filteredList = filteredRestaurants.filter(
+								(res) => res.info.avgRating > 4.2
 							);
 							setFilteredRestaurants(filteredList);
 						}}
 					>
 						Top Rated Restaurants
+					</button>
+					<button
+						className="px-4 py-2 bg-gray-100 rounded-lg mx-4"
+						onClick={() => setFilteredRestaurants(listOfRestaurants)}
+					>
+						Reset
 					</button>
 				</div>
 				{/*  Username div  */}
@@ -98,10 +106,10 @@ const Body = () => {
 			<div className="res-container flex flex-wrap">
 				{filteredRestaurants.map((restaurant) => (
 					<Link
-						key={restaurant?.info.id}
+						key={restaurant?.info?.id}
 						to={"/restaurants/" + restaurant?.info.id}
 					>
-						{restaurant?.info.promoted ? (
+						{restaurant?.info?.promoted ? (
 							<RestaurantCardPromoted resData={restaurant?.info} />
 						) : (
 							<RestaurantCard resData={restaurant?.info} />
